@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 const name = ref('nissen');
 const status = ref('inactive');
@@ -28,7 +28,17 @@ const AddTask = () => {
 
 const DeleteTask = (index) => {
 	tasks.value.splice(index, 1);
-}
+};
+
+const ChangeTaskState = (index) => {
+	let task = tasks.value.at(index);
+	if (task === 'active')
+		tasks.value[index] = 'paused';
+	else if (task === 'paused')
+		tasks.value[index] = 'active';
+	else
+		console.log('Cannot pause a task that is not active!');
+};
 
 </script>
 
@@ -52,6 +62,7 @@ const DeleteTask = (index) => {
 				{{ task }}
 			</span>
 			<button @click="DeleteTask(index)">Delete!</button>
+			<button @click="ChangeTaskState(index)">Pause!</button>
 		</li>
 	</ul>
 	<!-- <a v-bind:href="link">Google-time!!!</a> -->
