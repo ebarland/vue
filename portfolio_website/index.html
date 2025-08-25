@@ -1,0 +1,27 @@
+<!doctype html> 
+<html data-theme='dark' lang="en"> 
+	<head>
+    	<meta charset="utf-8" />
+    	<meta name="viewport" content="width=device-width,initial-scale=1" />
+    	<title>Vite App</title>
+		<script>
+  			(function(){ 
+				try { 
+					const saved = localStorage.getItem('theme'); // 'dark' || 'light' || null 
+					const systemPref = window.matchMedia('(prefers-color-scheme: dark)').matches; 
+					const wantDark = saved ? (saved === 'dark') : systemPref; 
+					document.documentElement.classList.toggle('dark', wantDark); 
+					document.documentElement.setAttribute('theme', wantDark ? 'dark' : 'light');
+				} 
+				catch (e) { 
+					// fail silently — default browser colors apply 
+					console.warn('theme init failed', e); 
+				} 
+			})();
+		</script> 
+	</head> 
+	<body> 
+		<div id="app"></div> 
+		<script type="module" src="/src/main.js"></script> 
+	</body> 
+</html>
